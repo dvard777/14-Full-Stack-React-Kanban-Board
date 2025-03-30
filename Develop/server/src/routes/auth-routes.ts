@@ -1,7 +1,7 @@
 import { Router, Request, Response } from 'express';
 import { User } from '../models/index.js'; // Initialized user model from models/index.ts
 import jwt from 'jsonwebtoken';
-import bcrypt from 'bcrypt';
+import bcrypt from 'bcryptjs';
 
 export const login = async (req: Request, res: Response): Promise<void> => {
   console.log('Login attempt with data:', req.body);
@@ -23,7 +23,6 @@ export const login = async (req: Request, res: Response): Promise<void> => {
     }
 
     const payload = { username: user.username, id: user.id };
-    // Use JWT_SECRET from your .env file (not JWT_SECRET_KEY)
     const secret = process.env.JWT_SECRET;
     if (!secret) {
       throw new Error('JWT secret is not defined in environment variables');
